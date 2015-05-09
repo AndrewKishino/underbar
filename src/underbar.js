@@ -80,16 +80,37 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var truth = [];
+    _.each(collection, function(item) {
+      if (test(item)) {
+        truth.push(item);
+      }
+    });
+    return truth;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    return _.filter(collection, function(item) {
+      return !test(item);
+    });
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var sortArray = array;
+    var result = [];
+    sortArray.sort(function(a, b){return a-b});
+    var last = sortArray[0];
+    for (var i = 1; i <= sortArray.length; i++) {
+      if (last !== array[i]) {
+        result.push(last);
+      }
+      last = array[i];
+    }
+    return result;
   };
 
 
@@ -98,6 +119,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var result = [];
+    _.each(collection, function(item) {
+      result.push(iterator(item));
+    });
+    return result;
   };
 
   /*
@@ -139,6 +165,20 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    if (arguments[2] === undefined) {
+      var result = collection[0];
+      var shifted = collection;
+      shifted.shift();
+      _.each(shifted, function(item) {
+        result = iterator(result, item);
+      });
+    } else {
+      var result = accumulator;
+      _.each(collection, function(item) {
+        result = iterator(result, item);
+      });
+    }
+    return result;
   };
 
   // Determine if the array or object contains a given value (using `===`).
