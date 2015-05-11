@@ -20,7 +20,7 @@
    *
    *
    * IMPORTANT NOTE!
-   * ===========
+   * ============
    *
    * The .first function is implemented for you, to help guide you toward success
    * in your work on the following functions. Whenever you see a portion of the
