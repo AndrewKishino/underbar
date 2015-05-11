@@ -165,7 +165,7 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    if (arguments[2] === undefined) {
+    if (accumulator === undefined) {
       var result = collection[0];
       var shifted = collection;
       shifted.shift();
