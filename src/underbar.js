@@ -80,13 +80,13 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
-    var truth = [];
+    var result = [];
     _.each(collection, function(item) {
       if (test(item)) {
-        truth.push(item);
+        result.push(item);
       }
     });
-    return truth;
+    return result;
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -100,19 +100,14 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    var sortArray = array;
     var result = [];
-    sortArray.sort(function(a, b){return a-b});
-    var last = sortArray[0];
-    for (var i = 1; i <= sortArray.length; i++) {
-      if (last !== array[i]) {
-        result.push(last);
+    _.each(array,function(value,key){
+      if(_.indexOf(result, value) === -1) {
+        result.push(value);
       }
-      last = array[i];
-    }
+    });
     return result;
   };
-
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
