@@ -232,8 +232,8 @@
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
     _.each(arguments, function(source) {
-      for (var prop in source) {
-        obj[prop] = source[prop];
+      for (var key in source) {
+        obj[key] = source[key];
       }
     });
     return obj;
@@ -242,6 +242,14 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    _.each(arguments, function(source) {
+      for (var key in source) {
+        if (!obj.hasOwnProperty(key)) {
+          obj[key] = source[key];
+        }
+      }
+    });
+    return obj;
   };
 
 
